@@ -9,6 +9,26 @@
 
 <body>
     <h1>欢迎来到吃了么服务器test</h1>
+    <button>点击测试register接口</button>
+    <p></p>
 </body>
+<script src="./js/jquery.js"></script>
+<script>
+    $(() => {
+        $('button').on('click', () => {
+            $.ajax({
+                type: 'post',
+                url: '/register',
+                success(data) {
+                    let response = data.msg
+                    $('p').empty().append(response)
+                },
+                error(err) {
+                    console.log(err.responseText)
+                }
+            })
+        })
+    })
+</script>
 
 </html>
