@@ -8,6 +8,8 @@ const koaBody = require('koa-body')//引入解析post请求模块
 let root = path.resolve('.') //得到根目录
 app.use(koaStatic(path.join(root, '/static'))) //配置静态资源路径
 app.use(koaBody())
+const cors = require('koa-cors') //解决跨域问题
+app.use(cors())
 const mongoose = require('mongoose') //引入连接数据库模块
 mongoose.connect(config.db, {
     useNewUrlParser: true,
