@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2705141",
+      "name": "收银",
+      "font_class": "shouyin",
+      "unicode": "e772",
+      "unicode_decimal": 59250
+    },
+    {
+      "icon_id": "7872541",
+      "name": "辅助",
+      "font_class": "fuzhu",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "8554308",
+      "name": "库存",
+      "font_class": "tubiao_kucun",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "9659905",
+      "name": "换班",
+      "font_class": "huanban",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "11820724",
+      "name": "退出",
+      "font_class": "power",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "13490801",
+      "name": "报 表 管 理",
+      "font_class": "baobiaoguanli",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "13505116",
+      "name": "皇冠",
+      "font_class": "huangguan1",
+      "unicode": "e507",
+      "unicode_decimal": 58631
+    }
+  ]
+}
