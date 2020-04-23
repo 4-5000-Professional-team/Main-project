@@ -40,6 +40,16 @@ const routes = [
     name: 'Exit',
     component: () => import('../views/Exit.vue')
   },
+  {
+    path: '/logoin',
+    name: 'Logoin',
+    component: () => import('../views/Logoin.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
 <template lang='pug'>
   div#app
-    div#nav
+    div#nav(v-if='flag')
       div.navBtn(v-for='item in nav' :key='item.id')
         router-link.iconfont(:to='item.path' v-html='item.icon')
         p {{item.name}}
@@ -19,8 +19,19 @@ export default {
         { id: 5, name: "报表", path: "/report", icon: "&#xe604;" },
         { id: 6, name: "辅助", path: "/auxiliary", icon: "&#xe68b;" },
         { id: 7, name: "退出", path: "/exit", icon: "&#xe60d;" }
-      ]
+      ],
+      flag: true,
+      route: ["Logoin", "Register"]
     };
+  },
+  watch: {
+    $route(newVal) {
+      for (const item of this.route) {
+        if (newVal.name === item) {
+          this.flag = false;
+        }
+      }
+    }
   }
 };
 </script>
