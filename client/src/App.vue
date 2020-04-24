@@ -21,7 +21,7 @@ export default {
         { id: 7, name: "退出", path: "/exit", icon: "&#xe60d;" }
       ],
       flag: true,
-      route: ["Logoin", "Register"]
+      route: ["Logoin", "Register", "404"]
     };
   },
   watch: {

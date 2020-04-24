@@ -9,7 +9,7 @@ export default {
   beforeCreate() {
     console.clear();
     const cookie = utils.getCookie("user");
-    if (!cookie === this.$route.params.mobile) {
+    if (!(cookie === this.$route.params.mobile)) {
       this.$router.push("/logoin");
     }
   }
