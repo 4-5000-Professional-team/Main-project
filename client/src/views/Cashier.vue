@@ -6,12 +6,11 @@
 <script>
 import utils from "../assets/utils/util.js"; //引入需求工具
 export default {
-  beforeRouterEnter(to, from, next) {
+  beforeCreate() {
+    console.clear();
     const cookie = utils.getCookie("user");
-    if (cookie == null || cookie == undefined) {
+    if (!cookie === this.$route.params.mobile) {
       this.$router.push("/logoin");
-    } else {
-      next();
     }
   }
 };

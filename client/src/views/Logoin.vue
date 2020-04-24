@@ -49,17 +49,34 @@ export default {
             .then(data => {
               if (data.data.code === 200) {
                 util.createCookie("user", this.form.mobile);
-                alert(`欢迎${this.form.mobile}上线，祝您有好心情!`);
-                this.$router.push("/");
+                this.$notify({
+                  title: "成功",
+                  message: `欢迎${this.form.mobile}上线，祝您有好心情!`,
+                  type: "success"
+                });
+                this.$router.push({
+                  name: "Cashier",
+                  params: {
+                    mobile: this.form.mobile
+                  }
+                });
               } else {
-                alert(data.data.msg);
+                this.$notify({
+                  title: "警告",
+                  message: data.data.msg,
+                  type: "warning"
+                });
               }
             })
             .catch(err => {
               console.log(err);
             });
         } else {
-          alert("登录失败");
+          this.$notify({
+            title: "警告",
+            message: "登陆失败",
+            type: "warning",
+          });
           return false;
         }
       });

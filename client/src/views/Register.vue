@@ -61,14 +61,26 @@ export default {
             data: this.form
           })
             .then(data => {
-              alert(data.data.msg);
+              this.$notify({
+                title: "成功",
+                message: data.data.msg,
+                type: "success"
+              });
             })
             .catch(err => {
-              alert("注册失败");
+              this.$notify({
+                title: "警告",
+                message: "注册失败",
+                type: "warning"
+              });
               console.log(err);
             });
         } else {
-          alert("注册失败");
+          this.$notify({
+            title: "警告",
+            message: "注册失败",
+            type: "warning"
+          });
           return false;
         }
       });

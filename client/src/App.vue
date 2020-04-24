@@ -34,13 +34,29 @@ export default {
           this.flag = true;
         }
       }
+      if (newVal.name === "Cashier") {
+        this.$router.push("/");
+      }
       if (newVal.name === "Exit") {
-        const cfm = window.confirm("确认退出登录");
-        if (cfm) {
-          this.$router.push("/logoin");
-        } else {
-          this.$router.back();
-        }
+        this.$confirm("确认退出登录", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$message({
+              type: "success",
+              message: "退出登录成功!"
+            });
+            this.$router.push("/logoin");
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消退出登录"
+            });
+            this.$router.back();
+          });
       }
     }
   }
