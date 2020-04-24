@@ -4,7 +4,6 @@ const users = require('../model/user_schema')
 const register = async (ctx, next) => {
     const req = ctx.request.body
     //判断请求参数是否为空
-
     if (Object.keys(req).length == 0) {
         ctx.response.body = {
             msg: '缺少必要信息',
@@ -32,9 +31,25 @@ const register = async (ctx, next) => {
         }
         return false
     }
-    if (!mobileReg.test(mobile)) {
+    if (!req.password === req.cfm) {
+        ctx.response.body = {
+            msg: '两次密码不一致',
+            code: 400
+        }
+        return false
+    }
+    if (!mobileReg.test(req.mobile)) {
         ctx.response.body = {
             msg: '无法识别手机号',
+            code: 400
+        }
+        return false
+    }
+    //验证手机号是否重复
+    let userMobile = await users.find({ mobile: req.mobile })
+    if (userMobile.length > 0) {
+        ctx.response.body = {
+            msg: '该手机号已被注册',
             code: 400
         }
         return false
@@ -44,8 +59,8 @@ const register = async (ctx, next) => {
         username: req.username,
         password: req.password,
         mobile: req.mobile,
-        createDate: new Date().getTime,
-        lastUpdate: new Date().getTime
+        createDate: new Date().getTime(),
+        lastUpdate: new Date().getTime()
     })
     //插入到数据库的users集合中
     await user.save().then(() => {

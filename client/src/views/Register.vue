@@ -55,7 +55,18 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("注册成功");
+          this.axios({
+            method: "post",
+            url: "http://localhost:8888/register",
+            data: this.form
+          })
+            .then(data => {
+              alert(data.data.msg);
+            })
+            .catch(err => {
+              alert("注册失败");
+              console.log(err);
+            });
         } else {
           alert("注册失败");
           return false;
