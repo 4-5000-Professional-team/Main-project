@@ -17,6 +17,7 @@
                         el-link(@click='register') 点击注册
 </template>
 <script>
+import util from "../assets/utils/util.js";
 export default {
   data() {
     return {
@@ -40,7 +41,23 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("登录成功");
+          this.axios({
+            method: "post",
+            url: "http://localhost:8888/logoin",
+            data: this.form
+          })
+            .then(data => {
+              if (data.data.code === 200) {
+                util.createCookie("user", this.form.mobile);
+                alert(`欢迎${this.form.mobile}上线，祝您有好心情!`);
+                this.$router.push("/");
+              } else {
+                alert(data.data.msg);
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
           alert("登录失败");
           return false;

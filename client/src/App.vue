@@ -29,6 +29,17 @@ export default {
       for (const item of this.route) {
         if (newVal.name === item) {
           this.flag = false;
+          break;
+        } else {
+          this.flag = true;
+        }
+      }
+      if (newVal.name === "Exit") {
+        const cfm = window.confirm("确认退出登录");
+        if (cfm) {
+          this.$router.push("/logoin");
+        } else {
+          this.$router.back();
         }
       }
     }

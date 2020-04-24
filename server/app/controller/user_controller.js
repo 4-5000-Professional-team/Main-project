@@ -70,12 +70,45 @@ const register = async (ctx, next) => {
         }
     }).catch(err => {
         ctx.response.body = {
-            msg: err,
-            code: 200
+            msg: '后台服务器故障',
+            code: 500
         }
     })
     //注册成功
 }
+//登录
+const logoin = async (ctx, next) => {
+    const req = ctx.request.body
+    //判断参数是否为空
+    if (!Object.keys(req).length > 0) {
+        ctx.response.body = {
+            msg: '参数不能为空',
+            code: 400
+        }
+        return false
+    }
+    const user = await users.findOne({ mobile: req.mobile })
+    if (Object.keys(user).length > 0) {
+        if (user.password === req.password) {
+            //设置cookies
+            await ctx.cookies.set('user', user.mobile, {
+                expires: new Date('2020-5-20'), // cookie失效时间
+                httpOnly: true,  // 是否只用于http请求中获取
+                overwrite: false  // 是否允许重写
+            })
+            ctx.response.body = {
+                msg: '登陆成功',
+                code: 200
+            }
+        } else {
+            ctx.response.body = {
+                msg: '密码有误',
+                code: 400
+            }
+        }
+    }
+}
 module.exports = {
     register,
+    logoin
 }
