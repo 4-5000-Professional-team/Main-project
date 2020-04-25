@@ -7,9 +7,8 @@
 import utils from "../assets/utils/util.js"; //引入需求工具
 export default {
   beforeCreate() {
-    console.clear();
     const cookie = utils.getCookie("user");
-    if (!(cookie === this.$route.params.mobile)) {
+    if (cookie == null || cookie == undefined) {
       this.$router.push("/logoin");
     }
   }

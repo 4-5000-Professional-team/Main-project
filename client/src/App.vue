@@ -34,10 +34,13 @@ export default {
           this.flag = true;
         }
       }
-      if (newVal.name === "Cashier") {
-        this.$router.push("/");
-      }
       if (newVal.name === "Exit") {
+        const loading = this.$loading({
+          lock: true,
+          text: "Loading",
+          spinner: "el-icon-loading",
+          background: "rgba(0, 0, 0, 0.7)"
+        });
         this.$confirm("确认退出登录", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -48,6 +51,8 @@ export default {
               type: "success",
               message: "退出登录成功!"
             });
+            
+            loading.close();
             this.$router.push("/logoin");
           })
           .catch(() => {
@@ -55,6 +60,7 @@ export default {
               type: "info",
               message: "已取消退出登录"
             });
+            loading.close();
             this.$router.back();
           });
       }

@@ -48,18 +48,16 @@ export default {
           })
             .then(data => {
               if (data.data.code === 200) {
-                util.createCookie("user", this.form.mobile);
+                let cookie = util.getCookie("user");
+                if (cookie == null || cookie == undefined) {
+                  util.createCookie("user", this.form.mobile);
+                }
                 this.$notify({
                   title: "成功",
                   message: `欢迎${this.form.mobile}上线，祝您有好心情!`,
                   type: "success"
                 });
-                this.$router.push({
-                  name: "Cashier",
-                  params: {
-                    mobile: this.form.mobile
-                  }
-                });
+                this.$router.push("/");
               } else {
                 this.$notify({
                   title: "警告",
@@ -75,7 +73,7 @@ export default {
           this.$notify({
             title: "警告",
             message: "登陆失败",
-            type: "warning",
+            type: "warning"
           });
           return false;
         }
