@@ -42,7 +42,8 @@
           el-form-item(label="口味")
             el-input(v-model="form.tast")
           el-button(type="primary" round=true) 提交
-      el-col(:span="16") 
+      el-col(:span="16")
+        
 </template>
 
 <script>
