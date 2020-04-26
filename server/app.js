@@ -28,5 +28,7 @@ const static_router = require('./app/router/static_router') //引入静态页面
 app.use(static_router.routes()).use(static_router.allowedMethods()) //把静态页面路由部署到服务器
 const user_router = require('./app/router/user_router')
 app.use(user_router.routes()).use(user_router.allowedMethods())
+const good_router = require('./app/router/good_router')
+app.use(good_router.routes()).use(good_router.allowedMethods())
 app.listen(config.port) //设置服务器端口
 console.log(`server is running at 127.0.0.1:${config.port}`)

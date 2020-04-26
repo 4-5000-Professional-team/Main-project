@@ -91,8 +91,8 @@ const logoin = async (ctx, next) => {
     if (Object.keys(user).length > 0) {
         if (user.password === req.password) {
             //设置cookies
-            await ctx.cookies.set('user', user.mobile, {
-                expires: new Date('2020-5-20'), // cookie失效时间
+            ctx.cookies.set('user', user.mobile, {
+                maxAge: 30 * 24 * 60 * 60 * 1000, // cookie失效时间30天后
                 httpOnly: true,  // 是否只用于http请求中获取
                 overwrite: false  // 是否允许重写
             })

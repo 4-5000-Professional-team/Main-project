@@ -23,7 +23,12 @@
               el-radio(label='是')
               el-radio(label='不是')
           el-form-item(label="商品类型")
-            el-input(v-model="form.type")
+            el-radio-group(v-model="form.type")
+              el-radio(label='拿手菜')
+              el-radio(label='下酒菜')
+              el-radio(label='美味汤羹')
+              el-radio(label='主食')
+              el-radio(label='方便菜肴')
           el-form-item(label="推荐菜?")
             el-radio-group(v-model="form.isRecommend")
               el-radio(label='是')
@@ -40,10 +45,25 @@
             input.el-input__inner(v-model="material" placeholder='按下回车添加' @keypress.enter='key')
           p {{form.material.join(',')}}
           el-form-item(label="口味")
-            el-input(v-model="form.tast")
-          el-button(type="primary" round=true) 提交
+            el-radio-group(v-model="form.tast")
+              el-radio(label='清淡')
+              el-radio(label='偏辣')
+              el-radio(label='偏甜')
+          el-button(type="primary" round=true @click='submit') 提交
       el-col(:span="16")
-        
+        el-table(:data="tableData" border style="width: 100%" type='index')
+          el-table-column(prop="goodname" label="商品名称")
+          el-table-column(prop="price" label="单价")
+          el-table-column(prop="num" label="库存数量")
+          el-table-column(prop="recommend" label="推荐指数")
+          el-table-column(prop="isDrink" label="饮料？")
+          el-table-column(prop="isCombo" label="套餐？")
+          el-table-column(prop="type" label="类型")
+          el-table-column(prop="isRecommend" label="是否推荐")
+          el-table-column(prop="sailNum" label="卖出数量")
+          el-table-column(prop="isOff" label="是否打折")
+          el-table-column(prop="percent" label="折扣")
+          el-table-column(prop="tast" label="口味")
 </template>
 
 <script>
@@ -59,19 +79,45 @@ export default {
         recommend: 0,
         isDrink: "是" ? true : false,
         isCombo: "是" ? true : false,
-        type: "",
+        type: "拿手菜"
+          ? "hot"
+          : "下酒菜"
+          ? "cool"
+          : "美味汤羹"
+          ? "soup"
+          : "主食"
+          ? "staple"
+          : "quick",
         isRecommend: "是" ? true : false,
         sailNum: 0,
         isOff: "是" ? true : false,
         percent: 0,
         material: [],
         tast: ""
-      }
+      },
+      tableData: []
     };
   },
   methods: {
     key() {
       this.form.material.push(this.material);
+    },
+    submit() {
+      this.axios({
+        method: "post",
+        url: "http://localhost:8888/addGood",
+        data: this.form
+      })
+        .then(data => {
+          this.$notify({
+            title: "成功",
+            message: data.data.msg,
+            type: "success"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
