@@ -97,7 +97,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     logoin() {
-      this.$router.push("/logoin");
+      this.$router.push("/login");
     }
   }
 };

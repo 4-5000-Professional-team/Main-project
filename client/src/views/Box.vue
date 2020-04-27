@@ -175,6 +175,11 @@ export default {
     },
     reset(formname) {
       this.$refs[formname].resetFields();
+      this.$notify({
+        title: "成功",
+        message: '表单已被重置',
+        type: "success"
+      });
     },
     transform() {
       if (this.form.isDrink == "是") this.form.isDrink = true;

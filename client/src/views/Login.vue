@@ -1,5 +1,5 @@
 <template lang="pug">
-    div.logoin
+    div.login
         div.form
             div.logo
                 img(src='../assets/logo.png' alt='img')
@@ -48,10 +48,8 @@ export default {
           })
             .then(data => {
               if (data.data.code === 200) {
-                let cookie = util.getCookie("user");
-                if (cookie == null || cookie == undefined) {
-                  util.createCookie("user", this.form.mobile);
-                }
+                const user = util.getCookie("user");
+                localStorage.setItem("user", user);
                 this.$notify({
                   title: "成功",
                   message: `欢迎${this.form.mobile}上线，祝您有好心情!`,
@@ -89,7 +87,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.logoin {
+.login {
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, rgb(223, 217, 217), #ffffff);
