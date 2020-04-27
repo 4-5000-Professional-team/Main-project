@@ -12,7 +12,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -25,7 +25,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -38,7 +38,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -51,7 +51,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -64,7 +64,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -77,7 +77,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const cookie = utils.getCookie("user");
       if (cookie == null || cookie == undefined) {
-        next('/logoin')
+        next('/login')
       } else {
         next();
       }
@@ -89,9 +89,9 @@ const routes = [
     component: () => import('../views/Exit.vue')
   },
   {
-    path: '/logoin',
-    name: 'Logoin',
-    component: () => import('../views/Logoin.vue')
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/register',

@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
 const good = new schema({
+    goodid: Number,
     goodname: String,//商品名
     price: Number,//商品单价
     num: Number,//商品库存数量
