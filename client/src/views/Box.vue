@@ -3,7 +3,7 @@
     el-row
       el-col(:span="10")
         h2 添加商品
-        el-form(label-width="100px"  :model="form" :rules="rules")
+        el-form(label-width="100px"  :model="form" :rules="rules" ref="form")
           el-form-item(label="商品名称" prop="goodname")
             el-input(v-model="form.goodname")
           el-form-item(label="单价" prop="price")
@@ -50,6 +50,7 @@
               el-radio(label='偏辣')
               el-radio(label='偏甜')
           el-button(type="primary" round=true @click='submit') 提交
+          el-button(type="primary" round=true @click='reset("form")') 重置
       el-col(:span="14")
         el-table(:data="tableData" border style="width: 100%")
           el-table-column(type="index" width="50" label='序号')
@@ -172,6 +173,9 @@ export default {
           console.log(err);
         });
     },
+    reset(formname) {
+      this.$refs[formname].resetFields();
+    },
     transform() {
       if (this.form.isDrink == "是") this.form.isDrink = true;
       else this.form.isDrink = false;
@@ -264,9 +268,9 @@ export default {
         }
       }
       button {
-        width: 90%;
-        margin: auto;
-        display: block;
+        width: 40%;
+        margin-left: 40px;
+        display: inline-block;
       }
     }
     .el-col:nth-child(2) {
