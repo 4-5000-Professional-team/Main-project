@@ -13,7 +13,7 @@ const routes = [
     path: '/',
     name: 'Cashier',
     component: Cashier,
-    beforeEnter: fn
+    beforeEnter: fn,
   },
   {
     path: '/members',
