@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cashier from '../views/Cashier.vue'
-
+import util from '../assets/utils/util.js'
 Vue.use(VueRouter)
 
 const routes = [
@@ -63,8 +63,15 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  const user = localStorage.getItem('user')
-  if (!user) next('/login')
-  else next()
+  const user = util.getCookie('user')
+  if (to.path != '/login' && !user) {
+    next()
+  } else {
+    if (to.path == '/login' && user) {
+      next('/login')
+    } else {
+      next()
+    }
+  }
 })
 export default router

@@ -48,8 +48,6 @@ export default {
           })
             .then(data => {
               if (data.data.code === 200) {
-                const user = util.getCookie("user");
-                localStorage.setItem("user", user);
                 this.$notify({
                   title: "成功",
                   message: `欢迎${this.form.mobile}上线，祝您有好心情!`,
