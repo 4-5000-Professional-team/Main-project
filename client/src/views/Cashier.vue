@@ -11,6 +11,7 @@
         div.commen
           h3 常用商品
           div.food
+            span(v-for='item in hotdata' :key='item.id') {{`${item.goodname} ￥${item.goodprice}元`}}
         el-tabs(v-model="activeRight")
           el-tab-pane(label="主食" name="staple")
             h1 主食
@@ -33,7 +34,12 @@ export default {
   data() {
     return {
       activeLeft: "meal",
-      activeRight: "staple"
+      activeRight: "staple",
+      hotdata: [],
+      stapledata: [],
+      soupdata: [],
+      cooldata: [],
+      quickdata: []
     };
   },
   methods: {}

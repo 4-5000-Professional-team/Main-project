@@ -66,6 +66,9 @@
           el-table-column(prop="isOff" label="是否打折")
           el-table-column(prop="percent" label="折扣")
           el-table-column(prop="tast" label="口味")
+          el-table-column(prop="methods" label="操作")
+                template(slot-scope="scope")
+                    el-button(size="mini" type='danger' @click="deleteGood(scope.$index, scope.row)") 删除
 </template>
 
 <script>
@@ -78,7 +81,7 @@ export default {
         price: 0,
         num: 0,
         desc: "",
-        recommend: 0,
+        recommend: 3,
         isDrink: "不是",
         isCombo: "是",
         type: "主食",
@@ -105,7 +108,7 @@ export default {
         ],
         recommend: [
           { required: true, message: "请输入必要信息", trigger: "blur" },
-          { min: 1, message: "长度不能小于1", trigger: "blur" }
+          { min: 1, max: 5, message: "长度不能小于1", trigger: "blur" }
         ],
         isDrink: [
           { required: true, message: "请输入必要信息", trigger: "blur" }
@@ -177,7 +180,7 @@ export default {
       this.$refs[formname].resetFields();
       this.$notify({
         title: "成功",
-        message: '表单已被重置',
+        message: "表单已被重置",
         type: "success"
       });
     },
@@ -195,6 +198,45 @@ export default {
       else this.form.isRecommend = false;
       if (this.form.isOff == "是") this.form.isOff = true;
       else this.form.isOff = false;
+    },
+    deleteGood(index, row) {
+      this.axios({
+        method: "delete",
+        url: "http://localhost:8888/deleteGood",
+        dataType: "json",
+        data: row.goodid
+      })
+        .then(data => {
+          if (data.data.code === 200) {
+            this.$notify({
+              title: "成功",
+              message: data.data.msg,
+              type: "success"
+            });
+            const goodlist = data.data.data;
+            for (const item of goodlist) {
+              item.isDrink = item.isDrink ? "是" : "不是";
+              item.isCombo = item.isCombo ? "是" : "不是";
+              item.isRecommend = item.isRecommend ? "是" : "不是";
+              item.isOff = item.isOff ? "是" : "不打折";
+              if (item.type == "hot") item.type = "拿手菜";
+              else if (item.type == "cool") item.type = "下酒菜";
+              else if (item.type == "soup") item.type = "美味汤羹";
+              else if (item.type == "staple") item.type == "主食";
+              else item.type = "方便菜肴";
+            }
+            this.tableData = goodlist;
+          } else {
+            this.$notify({
+              title: "警告",
+              message: data.data.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   beforeMount() {

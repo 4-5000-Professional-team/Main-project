@@ -7,7 +7,10 @@ const path = require('path') //引入处理路径模块
 const koaBody = require('koa-body')//引入解析post请求模块
 let root = path.resolve('.') //得到根目录
 app.use(koaStatic(path.join(root, '/static'))) //配置静态资源路径
-app.use(koaBody())
+app.use(koaBody({
+    multipart: true,
+    strict: false,//是否启用严格模式。默认true，关掉可以解析delete请求参数
+}))
 const cors = require('koa-cors') //解决跨域问题
 app.use(cors({
     origin: 'http://localhost:8080',    // 前端地址

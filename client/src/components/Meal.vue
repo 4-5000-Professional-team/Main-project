@@ -4,7 +4,10 @@
             el-table-column(prop="goodname" label="商品")
             el-table-column(prop="num" label="数量")
             el-table-column(prop="price" label="金额")
-            el-table-column(prop="try" label="操作")
+            el-table-column(prop="methods" label="操作")
+                template(slot-scope="scope")
+                    el-button(size="mini" @click="handleAdd(scope.$index, scope.row)") +
+                    el-button(size="mini" @click="handleMinus(scope.$index, scope.row)") -
         div.info
             span 数量：0
             span 总价：0元
@@ -19,19 +22,27 @@ export default {
     return {
       tableData: []
     };
+  },
+  methods: {
+    handleAdd(index, row) {
+      console.log(index, row);
+    },
+    handleMinus(index, row) {
+      console.log(index, row);
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-.meal{
-    .info{
-        text-align: right;
-        box-sizing: border-box;
-        padding-right: 10px;
-    }
-    .btn{
-        margin-top: 10px;
-        text-align: center;
-    }
+.meal {
+  .info {
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 10px;
+  }
+  .btn {
+    margin-top: 10px;
+    text-align: center;
+  }
 }
 </style>

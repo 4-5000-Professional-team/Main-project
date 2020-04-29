@@ -68,7 +68,35 @@ const allGood = async (ctx, next) => {
         data: goodlist
     }
 }
+//删除商品
+const deleteGood = async (ctx, next) => {
+    const form = ctx.request.body
+    console.log(form)
+    const good = await goods.findOne({ goodid: form })
+    if (!!good) {
+        await goods.remove({ goodid: form }).then(async () => {
+            const goodlist = await goods.find()
+            ctx.response.body = {
+                msg: '删除成功',
+                code: 200,
+                data: goodlist
+            }
+        }).catch(err => {
+            ctx.response.body = {
+                msg: '删除失败',
+                code: 200
+            }
+            console.log(err)
+        })
+    } else {
+        ctx.response.body = {
+            msg: '没找到该商品',
+            code: 404
+        }
+    }
+}
 module.exports = {
     addGood,
     allGood,
+    deleteGood,
 }
