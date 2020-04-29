@@ -15,23 +15,30 @@
               span {{`￥${item.price}元`}}
         el-tabs(v-model="activeRight")
           el-tab-pane(label="主食" name="staple")
-            div.crad(v-for='item in stapledata' :key='item.id')
-              p {{item.goodname}}
+            staple(:stapledata='stapledata')
           el-tab-pane(label="美味汤羹" name="soup")
-            h1 美味汤羹
+            soup(:soupdata='soupdata')
           el-tab-pane(label="下酒菜" name="cool")
-            h1 下酒菜
+            cool(:cooldata='cooldata')
           el-tab-pane(label="方便菜肴" name="quick")
-            h1 方便菜肴
+            quick(:quickdata='quickdata')
 </template>
 
 <script>
 import order from "@/components/Order.vue";
 import meal from "@/components/Meal.vue";
+import staple from "@/components/Staple.vue";
+import soup from "@/components/Soup.vue";
+import cool from "@/components/Cool.vue";
+import quick from "@/components/Quick.vue";
 export default {
   components: {
     order,
-    meal
+    meal,
+    staple,
+    soup,
+    cool,
+    quick
   },
   data() {
     return {
@@ -100,7 +107,7 @@ export default {
           background: #fafafc;
         }
         .food {
-          width: 80%;
+          width: 90%;
           margin: auto;
           box-sizing: border-box;
           padding: 20px 0 14px;
@@ -116,17 +123,6 @@ export default {
             font-weight: bold;
             span {
               color: #75dada;
-            }
-          }
-        }
-      }
-      .el-tabs {
-        .el-tabs__content {
-          .el-tab-pane {
-            .card {
-              width: 200px;
-              height: 100px;
-              background: #ffffff;
             }
           }
         }
