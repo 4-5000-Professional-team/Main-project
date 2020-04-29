@@ -71,10 +71,9 @@ const allGood = async (ctx, next) => {
 //删除商品
 const deleteGood = async (ctx, next) => {
     const form = ctx.request.body
-    console.log(form)
     const good = await goods.findOne({ goodid: form })
     if (!!good) {
-        await goods.remove({ goodid: form }).then(async () => {
+        await goods.deleteOne({ goodid: form }).then(async () => {
             const goodlist = await goods.find()
             ctx.response.body = {
                 msg: '删除成功',
@@ -84,7 +83,7 @@ const deleteGood = async (ctx, next) => {
         }).catch(err => {
             ctx.response.body = {
                 msg: '删除失败',
-                code: 200
+                code: 500
             }
             console.log(err)
         })

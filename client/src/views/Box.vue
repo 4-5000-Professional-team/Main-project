@@ -42,7 +42,7 @@
           el-form-item(label="折扣幅度" prop="percent")
             el-input(v-model="form.percent")
           el-form-item(label="商品材料" prop="material")
-            input.el-input__inner(v-model="material" placeholder='按下回车添加' @keypress.enter='key')
+            input.el-input__inner(v-model="material" placeholder='按下回车添加(清空后添加下一个)' @keypress.enter='key')
           p {{form.material.join(',')}}
           el-form-item(label="口味" prop="tast")
             el-radio-group(v-model="form.tast")
@@ -52,7 +52,7 @@
           el-button(type="primary" round=true @click='submit') 提交
           el-button(type="primary" round=true @click='reset("form")') 重置
       el-col(:span="14")
-        el-table(:data="tableData" border style="width: 100%")
+        el-table(:data="tableData" border style="width: 100%" empty-text='暂无任何商品')
           el-table-column(type="index" width="50" label='序号')
           el-table-column(prop="goodname" label="商品名称")
           el-table-column(prop="price" label="单价")
@@ -104,11 +104,11 @@ export default {
         ],
         num: [
           { required: true, message: "请输入必要信息", trigger: "blur" },
-          { min: 1, message: "长度不能小于1", trigger: "blur" }
+          { min: 1, message: "数量不能小于1", trigger: "blur" }
         ],
         recommend: [
           { required: true, message: "请输入必要信息", trigger: "blur" },
-          { min: 1, max: 5, message: "长度不能小于1", trigger: "blur" }
+          { min: 1, max: 5, message: "推荐指数不能小于1", trigger: "blur" }
         ],
         isDrink: [
           { required: true, message: "请输入必要信息", trigger: "blur" }
@@ -160,7 +160,7 @@ export default {
               if (item.type == "hot") item.type = "拿手菜";
               else if (item.type == "cool") item.type = "下酒菜";
               else if (item.type == "soup") item.type = "美味汤羹";
-              else if (item.type == "staple") item.type == "主食";
+              else if (item.type == "staple") item.type = "主食";
               else item.type = "方便菜肴";
             }
             this.tableData = goodlist;
@@ -222,7 +222,7 @@ export default {
               if (item.type == "hot") item.type = "拿手菜";
               else if (item.type == "cool") item.type = "下酒菜";
               else if (item.type == "soup") item.type = "美味汤羹";
-              else if (item.type == "staple") item.type == "主食";
+              else if (item.type == "staple") item.type = "主食";
               else item.type = "方便菜肴";
             }
             this.tableData = goodlist;
@@ -260,7 +260,7 @@ export default {
             if (item.type == "hot") item.type = "拿手菜";
             else if (item.type == "cool") item.type = "下酒菜";
             else if (item.type == "soup") item.type = "美味汤羹";
-            else if (item.type == "staple") item.type == "主食";
+            else if (item.type == "staple") item.type = "主食";
             else item.type = "方便菜肴";
           }
           this.tableData = goodlist;
