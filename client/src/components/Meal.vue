@@ -10,7 +10,7 @@
                     el-button(size="mini" @click="handleMinus(scope.$index, scope.row)") -
         div.info
             span 数量：0
-            span 总价：0元
+            span {{`总价：${price}元`}}
         div.btn
             el-button(type="danger" round) 清空
             el-button(type="success" round) 结账
@@ -30,11 +30,30 @@ export default {
     handleMinus(index, row) {
       console.log(index, row);
     }
+  },
+  computed: {
+    price() {
+      let price = 0;
+      for (const item of this.tableData) {
+        price += item.num * item.price;
+      }
+      return price;
+    }
+  },
+  watch: {
+    $store(newVal) {
+      this.tableData = newVal.state.mealdata;
+    }
+  },
+  beforeMount() {
+    this.tableData = this.$store.state.mealdata;
   }
 };
 </script>
 <style lang="scss" scoped>
 .meal {
+  height: 100%;
+  overflow-x: auto;
   .info {
     text-align: right;
     box-sizing: border-box;

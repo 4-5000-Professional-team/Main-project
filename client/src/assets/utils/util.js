@@ -21,5 +21,45 @@ module.exports = {
         let cval = getCookie(name);
         if (cval != null)
             document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    },
+    addgood(point, good) {
+        point.$confirm(`确定添加${good.goodname}`, '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+            const datalist = point.$store.state.mealdata
+            const data = {
+                goodname: good.goodname,
+                price: good.price,
+                num: 1
+            }
+            let flag = true;
+            for (const item of datalist) {
+                if (!(item.goodname == data.goodname)) {
+                    flag = true
+                } else {
+                    flag = false
+                    break
+                }
+            }
+            if (flag) {
+                point.$message({
+                    type: 'success',
+                    message: '添加成功!'
+                });
+                datalist.push(data)
+            } else {
+                point.$message({
+                    type: 'info',
+                    message: '添加商品已存在'
+                });
+            }
+        }).catch(() => {
+            point.$message({
+                type: 'info',
+                message: '已取消添加'
+            });
+        });
     }
 }

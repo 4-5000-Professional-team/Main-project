@@ -11,7 +11,7 @@
         div.commen
           h3 常用商品
           div.food
-            p(v-for='item in hotdata' :key='item.id') {{item.goodname}}
+            p(v-for='item in hotdata' :key='item.id' @click='addmeal(item)') {{item.goodname}}
               span {{`￥${item.price}元`}}
         el-tabs(v-model="activeRight")
           el-tab-pane(label="主食" name="staple")
@@ -31,6 +31,7 @@ import staple from "@/components/Staple.vue";
 import soup from "@/components/Soup.vue";
 import cool from "@/components/Cool.vue";
 import quick from "@/components/Quick.vue";
+import util from "../assets/utils/util.js";
 export default {
   components: {
     order,
@@ -48,10 +49,15 @@ export default {
       stapledata: [],
       soupdata: [],
       cooldata: [],
-      quickdata: []
+      quickdata: [],
+      mealdata: []
     };
   },
-  methods: {},
+  methods: {
+    addmeal(good) {
+      util.addgood(this, good);
+    }
+  },
   beforeMount() {
     this.axios({
       methods: "get",
@@ -80,7 +86,7 @@ export default {
         }
       })
       .catch(err => {});
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
