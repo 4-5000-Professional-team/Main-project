@@ -12,7 +12,7 @@
             span 数量：0
             span {{`总价：${price}元`}}
         div.btn
-            el-button(type="danger" round) 清空
+            el-button(type="danger" @click='clean' round) 清空
             el-button(type="success" round) 结账
 </template>
 <script>
@@ -25,10 +25,36 @@ export default {
   },
   methods: {
     handleAdd(index, row) {
-      console.log(index, row);
+      row.num += 1;
     },
     handleMinus(index, row) {
-      console.log(index, row);
+      if (row.num > 1) {
+        row.num -= 1;
+      } else {
+        this.$confirm("确定删除该商品", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+            const index = this.$store.state.mealdata.indexOf(row);
+            this.$store.state.mealdata.splice(index, 1);
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除"
+            });
+          });
+      }
+    },
+    clean() {
+      this.$store.state.mealdata = [];
+      this.tableData = this.$store.state.mealdata;
     }
   },
   computed: {
@@ -42,6 +68,7 @@ export default {
   },
   watch: {
     $store(newVal) {
+      console.log(newVal.state.mealdata);
       this.tableData = newVal.state.mealdata;
     }
   },

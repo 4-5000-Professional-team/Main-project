@@ -1,12 +1,13 @@
 <template lang="pug">
     div.staple
-        div.card(v-for='item in soupdata' :key='item.id')
+        div.card(v-for='item in soupdata' :key='item.id' @click='addmeal(item)')
             div.img
             div.info
                 p {{item.goodname}}
                 p {{`￥${item.price}元`}}
 </template>
 <script>
+import util from "../assets/utils/util.js";
 export default {
   name: "soup",
   props: {
@@ -15,6 +16,11 @@ export default {
       defalut() {
         return [];
       }
+    }
+  },
+  methods: {
+    addmeal(good) {
+      util.addgood(this, good);
     }
   }
 };

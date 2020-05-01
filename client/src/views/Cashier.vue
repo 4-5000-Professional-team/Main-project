@@ -85,8 +85,10 @@ export default {
           this.quickdata = quickgood;
         }
       })
-      .catch(err => {});
-  },
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };
 </script>
 <style lang="scss" scoped>
