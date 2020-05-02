@@ -36,5 +36,7 @@ const user_router = require('./app/router/user_router')
 app.use(user_router.routes()).use(user_router.allowedMethods())
 const good_router = require('./app/router/good_router')
 app.use(good_router.routes()).use(good_router.allowedMethods())
+const order_router = require('./app/router/order_router')
+app.use(order_router.routes()).use(order_router.allowedMethods())
 app.listen(config.port) //设置服务器端口
 console.log(`server is running at 127.0.0.1:${config.port}`)

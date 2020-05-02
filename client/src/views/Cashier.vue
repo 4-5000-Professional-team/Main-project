@@ -6,7 +6,7 @@
           el-tab-pane(label="点餐" name="meal")
             meal
           el-tab-pane(label="订单列表" name="order")
-            order
+            order()
       el-col.right(:span="16")
         div.commen
           h3 常用商品
@@ -88,6 +88,11 @@ export default {
       .catch(err => {
         console.log(err);
       });
+  },
+  mounted() {
+    const el = document.getElementsByClassName("el-tabs__content")[0];
+    el.style.height = "580px";
+    el.style.overflowY = "auto";
   }
 };
 </script>
@@ -102,6 +107,13 @@ export default {
     }
     .left {
       background: #ffffff;
+      .el-tabs {
+        height: 100%;
+        .el-tabs__content {
+          overflow-y: auto;
+          height: 100%;
+        }
+      }
     }
     .right {
       background: #f1f2f6;

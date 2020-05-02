@@ -13,7 +13,7 @@
             span {{`总价：${price}元`}}
         div.btn
             el-button(type="danger" @click='clean' round) 清空
-            el-button(type="success" round) 结账
+            el-button(type="success" @click='upload' round) 结账
 </template>
 <script>
 export default {
@@ -55,6 +55,30 @@ export default {
     clean() {
       this.$store.state.mealdata = [];
       this.tableData = this.$store.state.mealdata;
+    },
+    upload() {
+      this.axios({
+        method: "post",
+        url: "http://localhost:8888/addorder",
+        data: this.tableData
+      })
+        .then(data => {
+          if (data.data.code === 200) {
+            this.$message({
+              message: data.data.msg,
+              type: "success"
+            });
+            this.clean();
+          } else {
+            this.$message({
+              message: data.data.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   computed: {
@@ -68,7 +92,6 @@ export default {
   },
   watch: {
     $store(newVal) {
-      console.log(newVal.state.mealdata);
       this.tableData = newVal.state.mealdata;
     }
   },
@@ -79,8 +102,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .meal {
-  height: 100%;
-  overflow-x: auto;
   .info {
     text-align: right;
     box-sizing: border-box;
