@@ -77,7 +77,7 @@ const register = async (ctx, next) => {
     //注册成功
 }
 //登录
-const logoin = async (ctx, next) => {
+const login = async (ctx, next) => {
     const req = ctx.request.body
     //判断参数是否为空
     if (!Object.keys(req).length > 0) {
@@ -93,7 +93,7 @@ const logoin = async (ctx, next) => {
             //设置cookies
             ctx.cookies.set('user', user.mobile, {
                 maxAge: 30 * 24 * 60 * 60 * 1000, // cookie失效时间30天后
-                httpOnly: true,  // 是否只用于http请求中获取
+                httpOnly: false,  // 是否只用于http请求中获取
                 overwrite: false  // 是否允许重写
             })
             ctx.response.body = {
@@ -110,5 +110,5 @@ const logoin = async (ctx, next) => {
 }
 module.exports = {
     register,
-    logoin
+    login
 }

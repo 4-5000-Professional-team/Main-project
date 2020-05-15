@@ -61,11 +61,19 @@ export default {
             data: this.form
           })
             .then(data => {
-              this.$notify({
-                title: "成功",
-                message: data.data.msg,
-                type: "success"
-              });
+              if (data.data.code == 200) {
+                this.$notify({
+                  title: "成功",
+                  message: data.data.msg,
+                  type: "success"
+                });
+              } else {
+                this.$notify({
+                  title: "警告",
+                  message: data.data.msg,
+                  type: "warning"
+                });
+              }
             })
             .catch(err => {
               this.$notify({
@@ -89,7 +97,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     logoin() {
-      this.$router.push("/logoin");
+      this.$router.push("/login");
     }
   }
 };

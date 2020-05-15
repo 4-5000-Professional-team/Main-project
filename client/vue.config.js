@@ -5,5 +5,6 @@ module.exports = {
             .use('pug-html-loader')
             .loader('pug-html-loader')
             .end()
-    }
+    },
+    productionSourceMap: false
 }

@@ -21,7 +21,7 @@ export default {
         { id: 7, name: "退出", path: "/exit", icon: "&#xe60d;" }
       ],
       flag: true,
-      route: ["Logoin", "Register", "404"]
+      route: ["Login", "Register", "404"]
     };
   },
   watch: {
@@ -53,7 +53,7 @@ export default {
             });
             
             loading.close();
-            this.$router.push("/logoin");
+            this.$router.push("/login");
           })
           .catch(() => {
             this.$message({
