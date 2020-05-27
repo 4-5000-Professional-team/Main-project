@@ -46,43 +46,48 @@ export default {
         });
     },
     remove() {
-      this.axios({
-        method: "delete",
-        url: "http://localhost:8888/removeall"
-      })
-        .then(data => {
-          if (data.data.code === 200) {
-            this.$confirm(
-              "此操作将永久删除所有订单，请确保你已经就完餐, 是否继续?",
-              "提示",
-              {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning"
+      this.$confirm(
+        "此操作将永久删除所有订单，请确保你已经就完餐, 是否继续?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      )
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.axios({
+            method: "delete",
+            url: "http://localhost:8888/removeall"
+          })
+            .then(data => {
+              if (data.data.code === 200) {
+                this.$message({
+                  message: "删除成功",
+                  type: "success"
+                });
+                this.update()
+              } else {
+                this.$message({
+                  message: data.data.msg,
+                  type: "warning"
+                });
               }
-            )
-              .then(() => {
-                this.$message({
-                  type: "success",
-                  message: "删除成功!"
-                });
-                this.update();
-              })
-              .catch(() => {
-                this.$message({
-                  type: "info",
-                  message: "已取消删除"
-                });
-              });
-          } else {
-            this.$message({
-              message: data.data.msg,
-              type: "warning"
+            })
+            .catch(err => {
+              console.log(err);
             });
-          }
+          this.update();
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
         });
     }
   }

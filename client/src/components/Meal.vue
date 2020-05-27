@@ -9,7 +9,7 @@
                     el-button(size="mini" @click="handleAdd(scope.$index, scope.row)") +
                     el-button(size="mini" @click="handleMinus(scope.$index, scope.row)") -
         div.info
-            span 数量：0
+            span {{`数量：${num}`}}
             span {{`总价：${price}元`}}
         div.btn
             el-button(type="danger" @click='clean' round) 清空
@@ -88,6 +88,13 @@ export default {
         price += item.num * item.price;
       }
       return price;
+    },
+    num() {
+      let num = 0;
+      for (const item of this.tableData) {
+        num += item.num;
+      }
+      return num;
     }
   },
   watch: {

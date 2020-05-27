@@ -253,7 +253,7 @@ export default {
           });
           const goodlist = data.data.data;
           for (const item of goodlist) {
-            item.isDrink = item.isDrink ? "是" : "不是";
+            item.isDrink = item.isDrink ? "是" : "不是·";
             item.isCombo = item.isCombo ? "是" : "不是";
             item.isRecommend = item.isRecommend ? "是" : "不是";
             item.isOff = item.isOff ? "是" : "不打折";
